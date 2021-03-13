@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import {HashRouter as Router, Switch, Route} from 'react-router-dom';
+import { ProviderAuth } from './Provider/Auth';
+import Login from './components/login';
+import Pokedex from './components/Pokedex';
+import Pokemon from './components/pokemon';
+import Encounter from './components/Encounter';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+function App (){
+  return(
+    <ProviderAuth>
+      <Router>
+        <Switch>
+          <Route exact path='/pokedex/pokemon/:id/encounter'>
+           <Encounter/> 
+          </Route>
+          <Route exact path='/pokedex/pokemon/:id'>
+              <Pokemon/>
+          </Route>
+          <Route exact path='/pokedex'>
+            <Pokedex/>
+          </Route>
+          <Route exact path='/'>
+              <Login/>
+          </Route>
+          <Route path='*'>
+            Not Found 404
+          </Route>
+        </Switch>
+      </Router>
+    </ProviderAuth>
+  )
 }
 
 export default App;
